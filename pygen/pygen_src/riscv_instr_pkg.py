@@ -94,6 +94,8 @@ class riscv_instr_group_t(IntEnum):
     RV32X = auto()
     RV64X = auto()
     RVV = auto()
+    RV32Zicond = auto()
+    RV64Zicond = auto()
 
 
 class riscv_instr_name_t(IntEnum):
@@ -624,6 +626,9 @@ class riscv_instr_name_t(IntEnum):
     SRET = auto()
     WFI = auto()
     SFENCE_VMA = auto()
+    #Zicond Instructions
+    CZERO_EQZ = auto()
+    CZERO_NEZ = auto()
     # Custom instructions
     # TODO add a way to import custom instructions here from isa/custom/riscv_custom_instr_enum.py
     # You can add other instructions here
@@ -1889,6 +1894,15 @@ def get_attr_list(instr_name):
         riscv_instr_name_t.C_SDSP: [riscv_instr_format_t.CSS_FORMAT,
                                     riscv_instr_category_t.STORE,
                                     riscv_instr_group_t.RV64C, imm_t.UIMM],
+
+        #RV64Zicond
+        riscv_instr_name_t.CZERO_EQZ: [riscv_instr_format_t.R_FORMAT,
+                                       riscv_instr_category_t.COMPARE,
+                                       riscv_instr_group_t.RV64Zicond],
+        riscv_instr_name_t.CZERO_NEZ: [riscv_instr_format_t.R_FORMAT,
+                                       riscv_instr_category_t.COMPARE,
+                                       riscv_instr_group_t.RV64Zicond],
+
     }
     # if instruction is not present in the dictionary,second argument well
     # be assigned as default value of passed argument
