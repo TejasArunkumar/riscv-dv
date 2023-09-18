@@ -448,6 +448,8 @@ class riscv_instr:
         elif self.instr_name in ["ECALL", "EBREAK", "URET", "SRET", "MRET", "DRET", "WFI",
                                  "SFENCE_VMA"]:
             return (BitArray(uint = 115, length = 7).bin)
+        elif self.instr_name in ["CZERO_EQZ", "CZERO_NEZ"]:
+            return (BitArray(uint = 51, length = 7).bin)
         else:
             logging.critical("Unsupported instruction %0s", self.instr_name)
             sys.exit(1)
@@ -469,11 +471,11 @@ class riscv_instr:
             return (BitArray(uint = 4, length = 3).bin)
         elif self.instr_name in ["BGE", "LHU", "SRLI", "SRAI", "SRL", "SRA", "CSRRWI", "SRLIW",
                                  "SRAIW", "SRLW",
-                                 "SRAW", "DIVU", "DIVUW"]:
+                                 "SRAW", "DIVU", "DIVUW", "CZERO_EQZ"]:
             return (BitArray(uint = 5, length = 3).bin)
         elif self.instr_name in ["BLTU", "ORI", "OR", "CSRRSI", "LWU", "REM", "REMW"]:
             return (BitArray(uint = 6, length = 3).bin)
-        elif self.instr_name in ["BGEU", "ANDI", "AND", "CSRRCI", "REMU", "REMUW"]:
+        elif self.instr_name in ["BGEU", "ANDI", "AND", "CSRRCI", "REMU", "REMUW", "CZERO_NEZ"]:
             return (BitArray(uint = 7, length = 3).bin)
         else:
             logging.critical("Unsupported instruction %0s", self.instr_name)
@@ -497,6 +499,8 @@ class riscv_instr:
             return (BitArray(uint = 61, length = 7).bin)
         elif self.instr_name == "SFENCE_VMA":
             return (BitArray(uint = 9, length = 7).bin)
+        elif self.instr_name in ["CZERO_EQZ", "CZERO_NEZ"]:
+            return (BitArray(uint = 7, length = 7).bin)
         else:
             logging.critical("Unsupported instruction %0s", self.instr_name)
             sys.exit(1)
