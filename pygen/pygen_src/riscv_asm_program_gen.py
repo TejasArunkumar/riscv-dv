@@ -394,6 +394,10 @@ class riscv_asm_program_gen:
             elif group in [riscv_instr_group_t.RV32X,
                            riscv_instr_group_t.RV64X]:
                 misa[misa_ext_t.MISA_EXT_X] = 1
+            # Need to check this. Works for now but not right!
+            elif group in [riscv_instr_group_t.RV32Zicond,
+                           riscv_instr_group_t.RV64Zicond]:
+                misa[misa_ext_t.MISA_EXT_Z] = 1
             else:
                 logging.critical("{} is not yet supported".format(group.name))
                 sys.exit(1)
