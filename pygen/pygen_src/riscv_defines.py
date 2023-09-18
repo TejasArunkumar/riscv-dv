@@ -144,6 +144,26 @@ def DEFINE_AMO_INSTR(instr_n, instr_format, instr_category,
     })
     g[class_name] = NewClass
 
+# ZiCond instruction
+def DEFINE_ZICOND_INSTR(instr_n, instr_format, instr_category,
+                   instr_group, imm_tp = imm_t.IMM, g = globals()):
+    class_name = "riscv_{}_instr".format(instr_n.name)
+
+    def __init__(self):
+        riscv_instr.__init__(self)
+        self.instr_name = instr_n
+        self.format = instr_format
+        self.category = instr_category
+        self.group = instr_group
+        self.imm_type = imm_tp
+        self.set_imm_len()
+        self.set_rand_mode()
+    NewClass = type(class_name, (riscv_instr,), {
+        "__init__": __init__,
+        "valid": riscv_instr.register(instr_n, instr_group)
+    })
+    g[class_name] = NewClass
+
 
 '''
 TODO
