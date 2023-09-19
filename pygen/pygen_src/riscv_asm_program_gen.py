@@ -366,7 +366,9 @@ class riscv_asm_program_gen:
         for group in rcs.supported_isa:
             if group in [riscv_instr_group_t.RV32C,
                          riscv_instr_group_t.RV64C,
-                         riscv_instr_group_t.RV128C]:
+                         riscv_instr_group_t.RV128C,
+                         riscv_instr_group_t.RV32Zcb,
+                         riscv_instr_group_t.RV64Zcb]:
                 misa[misa_ext_t.MISA_EXT_C] = 1
             elif group in [riscv_instr_group_t.RV32I,
                            riscv_instr_group_t.RV64I,
