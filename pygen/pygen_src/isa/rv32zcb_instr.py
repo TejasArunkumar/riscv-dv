@@ -35,8 +35,8 @@ DEFINE_ZCB_INSTR(riscv_instr_name_t.C_ZEXT_H, riscv_instr_format_t.CE_FORMAT,
                  riscv_instr_category_t.LOGICAL, riscv_instr_group_t.RV32Zcb,  g=globals())
 DEFINE_ZCB_INSTR(riscv_instr_name_t.C_SEXT_H, riscv_instr_format_t.CE_FORMAT,
                  riscv_instr_category_t.LOGICAL, riscv_instr_group_t.RV32Zcb,  g=globals())
-DEFINE_ZCB_INSTR(riscv_instr_name_t.C_ZEXT_W, riscv_instr_format_t.CE_FORMAT,
-                 riscv_instr_category_t.LOGICAL, riscv_instr_group_t.RV32Zcb,  g=globals())
+# DEFINE_ZCB_INSTR(riscv_instr_name_t.C_ZEXT_W, riscv_instr_format_t.CE_FORMAT,
+#                  riscv_instr_category_t.LOGICAL, riscv_instr_group_t.RV32Zcb,  g=globals())
 DEFINE_ZCB_INSTR(riscv_instr_name_t.C_NOT, riscv_instr_format_t.CA_FORMAT,
                  riscv_instr_category_t.LOGICAL, riscv_instr_group_t.RV32Zcb,  g=globals())
 DEFINE_ZCB_INSTR(riscv_instr_name_t.C_MUL, riscv_instr_format_t.CA_FORMAT,
