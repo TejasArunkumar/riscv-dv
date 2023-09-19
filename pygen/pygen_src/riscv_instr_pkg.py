@@ -96,6 +96,8 @@ class riscv_instr_group_t(IntEnum):
     RVV = auto()
     RV32Zicond = auto()
     RV64Zicond = auto()
+    RV32Zcb = auto()
+    RV64Zcb = auto()
 
 
 class riscv_instr_name_t(IntEnum):
@@ -629,6 +631,19 @@ class riscv_instr_name_t(IntEnum):
     #Zicond Instructions
     CZERO_EQZ = auto()
     CZERO_NEZ = auto()
+    #Zcb Instructions
+    C_LBU = auto()
+    C_LHU = auto()
+    C_LH = auto()
+    C_SB = auto()
+    C_SH = auto()
+    C_ZEXT_B = auto()
+    C_SEXT_B = auto()
+    C_ZEXT_H = auto()
+    C_SEXT_H = auto()
+    C_ZEXT_W = auto()
+    C_NOT = auto()
+    C_MUL = auto()
     # Custom instructions
     # TODO add a way to import custom instructions here from isa/custom/riscv_custom_instr_enum.py
     # You can add other instructions here
@@ -758,6 +773,7 @@ class riscv_instr_format_t(IntEnum):
     CS_FORMAT = auto()
     CSS_FORMAT = auto()
     CIW_FORMAT = auto()
+    CE_FORMAT = auto()
     # Vector instruction format
     VSET_FORMAT = auto()
     VA_FORMAT = auto()
@@ -1902,6 +1918,44 @@ def get_attr_list(instr_name):
         riscv_instr_name_t.CZERO_NEZ: [riscv_instr_format_t.R_FORMAT,
                                        riscv_instr_category_t.COMPARE,
                                        riscv_instr_group_t.RV64Zicond],
+
+        # #RV32Zcb
+        riscv_instr_name_t.C_LBU: [riscv_instr_format_t.CL_FORMAT,
+                                   riscv_instr_category_t.LOAD,
+                                   riscv_instr_group_t.RV32Zcb, imm_t.UIMM],
+        riscv_instr_name_t.C_LHU: [riscv_instr_format_t.CL_FORMAT,
+                                   riscv_instr_category_t.LOAD,
+                                   riscv_instr_group_t.RV32Zcb, imm_t.UIMM],
+        riscv_instr_name_t.C_LH: [riscv_instr_format_t.CL_FORMAT,
+                                    riscv_instr_category_t.LOAD,
+                                    riscv_instr_group_t.RV32Zcb, imm_t.UIMM],
+        riscv_instr_name_t.C_SB: [riscv_instr_format_t.CS_FORMAT,
+                                  riscv_instr_category_t.STORE,
+                                  riscv_instr_group_t.RV32Zcb, imm_t.UIMM],
+        riscv_instr_name_t.C_SH: [riscv_instr_format_t.CS_FORMAT,
+                                  riscv_instr_category_t.STORE,
+                                  riscv_instr_group_t.RV32Zcb, imm_t.UIMM],
+        riscv_instr_name_t.C_ZEXT_B: [riscv_instr_format_t.CE_FORMAT,
+                                      riscv_instr_category_t.LOGICAL,
+                                      riscv_instr_group_t.RV32Zcb],
+        riscv_instr_name_t.C_SEXT_B: [riscv_instr_format_t.CE_FORMAT,
+                                      riscv_instr_category_t.LOGICAL,
+                                      riscv_instr_group_t.RV32Zcb],
+        riscv_instr_name_t.C_ZEXT_H: [riscv_instr_format_t.CE_FORMAT,
+                                      riscv_instr_category_t.LOGICAL,
+                                      riscv_instr_group_t.RV32Zcb],
+        riscv_instr_name_t.C_SEXT_H: [riscv_instr_format_t.CE_FORMAT,
+                                      riscv_instr_category_t.LOGICAL,
+                                      riscv_instr_group_t.RV32Zcb],
+        riscv_instr_name_t.C_ZEXT_W: [riscv_instr_format_t.CE_FORMAT,
+                                      riscv_instr_category_t.LOGICAL,
+                                      riscv_instr_group_t.RV32Zcb],
+        riscv_instr_name_t.C_NOT: [riscv_instr_format_t.CA_FORMAT,
+                                   riscv_instr_category_t.LOGICAL,
+                                   riscv_instr_group_t.RV32Zcb],
+        riscv_instr_name_t.C_MUL: [riscv_instr_format_t.CA_FORMAT,
+                                   riscv_instr_category_t.ARITHMETIC,
+                                   riscv_instr_group_t.RV32Zcb],
 
     }
     # if instruction is not present in the dictionary,second argument well
