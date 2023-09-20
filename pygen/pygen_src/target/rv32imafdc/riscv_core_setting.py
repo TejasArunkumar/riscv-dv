@@ -36,7 +36,8 @@ unsupported_instr = []
 supported_isa = [riscv_instr_group_t.RV32I, riscv_instr_group_t.RV32M,
                  riscv_instr_group_t.RV32C, riscv_instr_group_t.RV32F,
                  riscv_instr_group_t.RV32FC, riscv_instr_group_t.RV32D,
-                 riscv_instr_group_t.RV32DC, riscv_instr_group_t.RV32A]
+                 riscv_instr_group_t.RV32DC, riscv_instr_group_t.RV32A,
+                 riscv_instr_group_t.RV32Z]
 
 # Interrupt mode support
 supported_interrupt_mode = [mtvec_mode_t.DIRECT, mtvec_mode_t.VECTORED]
