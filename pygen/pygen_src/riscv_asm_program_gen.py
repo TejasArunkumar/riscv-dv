@@ -366,7 +366,9 @@ class riscv_asm_program_gen:
         for group in rcs.supported_isa:
             if group in [riscv_instr_group_t.RV32C,
                          riscv_instr_group_t.RV64C,
-                         riscv_instr_group_t.RV128C]:
+                         riscv_instr_group_t.RV128C,
+                         riscv_instr_group_t.RV32Zcb,
+                         riscv_instr_group_t.RV64Zcb]:
                 misa[misa_ext_t.MISA_EXT_C] = 1
             elif group in [riscv_instr_group_t.RV32I,
                            riscv_instr_group_t.RV64I,
@@ -394,6 +396,10 @@ class riscv_asm_program_gen:
             elif group in [riscv_instr_group_t.RV32X,
                            riscv_instr_group_t.RV64X]:
                 misa[misa_ext_t.MISA_EXT_X] = 1
+            # Need to check this. Works for now but not right!
+            elif group in [riscv_instr_group_t.RV32Zicond,
+                           riscv_instr_group_t.RV64Zicond]:
+                misa[misa_ext_t.MISA_EXT_Z] = 1
             else:
                 logging.critical("{} is not yet supported".format(group.name))
                 sys.exit(1)

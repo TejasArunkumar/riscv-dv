@@ -16,6 +16,7 @@ from pygen_src.isa.riscv_compressed_instr import riscv_compressed_instr
 from pygen_src.isa.riscv_floating_point_instr import riscv_floating_point_instr
 from pygen_src.isa.riscv_b_instr import riscv_b_instr
 from pygen_src.isa.riscv_amo_instr import riscv_amo_instr
+from pygen_src.isa.riscv_zcb_instr import riscv_zcb_instr
 
 
 # Regular integer instruction
@@ -141,6 +142,46 @@ def DEFINE_AMO_INSTR(instr_n, instr_format, instr_category,
     NewClass = type(class_name, (riscv_amo_instr,), {
         "__init__": __init__,
         "valid": riscv_amo_instr.register(instr_n, instr_group)
+    })
+    g[class_name] = NewClass
+
+# ZiCond instruction
+def DEFINE_ZICOND_INSTR(instr_n, instr_format, instr_category,
+                   instr_group, imm_tp = imm_t.IMM, g = globals()):
+    class_name = "riscv_{}_instr".format(instr_n.name)
+
+    def __init__(self):
+        riscv_instr.__init__(self)
+        self.instr_name = instr_n
+        self.format = instr_format
+        self.category = instr_category
+        self.group = instr_group
+        self.imm_type = imm_tp
+        self.set_imm_len()
+        self.set_rand_mode()
+    NewClass = type(class_name, (riscv_instr,), {
+        "__init__": __init__,
+        "valid": riscv_instr.register(instr_n, instr_group)
+    })
+    g[class_name] = NewClass
+
+# Zcb instruction
+def DEFINE_ZCB_INSTR(instr_n, instr_format, instr_category,
+                   instr_group, imm_tp = imm_t.IMM, g = globals()):
+    class_name = "riscv_{}_instr".format(instr_n.name)
+
+    def __init__(self):
+        riscv_zcb_instr.__init__(self)
+        self.instr_name = instr_n
+        self.format = instr_format
+        self.category = instr_category
+        self.group = instr_group
+        self.imm_type = imm_tp
+        self.set_imm_len()
+        self.set_rand_mode()
+    NewClass = type(class_name, (riscv_zcb_instr,), {
+        "__init__": __init__,
+        "valid": riscv_zcb_instr.register(instr_n, instr_group)
     })
     g[class_name] = NewClass
 
