@@ -17,6 +17,7 @@ from pygen_src.isa.riscv_floating_point_instr import riscv_floating_point_instr
 from pygen_src.isa.riscv_b_instr import riscv_b_instr
 from pygen_src.isa.riscv_amo_instr import riscv_amo_instr
 from pygen_src.isa.riscv_zcb_instr import riscv_zcb_instr
+from pygen_src.isa.riscv_cache_instr import riscv_cache_instr
 
 
 # Regular integer instruction
@@ -164,7 +165,25 @@ def DEFINE_ZICOND_INSTR(instr_n, instr_format, instr_category,
         "valid": riscv_instr.register(instr_n, instr_group)
     })
     g[class_name] = NewClass
+# CMO-extension instruction
+def DEFINE_CACHE_INSTR(instr_n, instr_format, instr_category,
+                 instr_group, imm_tp = imm_t.IMM, g = globals()):
+    class_name = "riscv_{}_instr".format(instr_n.name)
 
+    def __init__(self):
+        riscv_cache_instr.__init__(self)
+        self.instr_name = instr_n
+        self.format = instr_format
+        self.category = instr_category
+        self.group = instr_group
+        self.imm_type = imm_tp
+        self.set_imm_len()
+        self.set_rand_mode()
+    NewClass = type(class_name, (riscv_cache_instr,), {
+        "__init__": __init__,
+        "valid": riscv_cache_instr.register(instr_n, instr_group)
+    })
+    g[class_name] = NewClass
 # Zcb instruction
 def DEFINE_ZCB_INSTR(instr_n, instr_format, instr_category,
                    instr_group, imm_tp = imm_t.IMM, g = globals()):
