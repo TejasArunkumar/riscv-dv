@@ -94,10 +94,11 @@ class riscv_instr_group_t(IntEnum):
     RV32X = auto()
     RV64X = auto()
     RVV = auto()
-    RV32Zicond = auto()
-    RV64Zicond = auto()
-    RV32Zcb = auto()
-    RV64Zcb = auto()
+    RV32Z = auto() # added
+    RV32Zicond = auto() #added
+    RV64Zicond = auto() #added
+    RV32Zcb = auto() #added
+    RV64Zcb = auto() #added
 
 
 class riscv_instr_name_t(IntEnum):
@@ -628,6 +629,14 @@ class riscv_instr_name_t(IntEnum):
     SRET = auto()
     WFI = auto()
     SFENCE_VMA = auto()
+    #Zicbom_Instruction_set
+    CBO_CLEAN = auto()
+    CBO_FLUSH = auto()
+    CBO_INVAL = auto()
+    #Zicbop_Instruction_Set
+    PREFETCH_I = auto()
+    PREFETCH_R = auto()
+    PREFETCH_W = auto()
     #Zicond Instructions
     CZERO_EQZ = auto()
     CZERO_NEZ = auto()
@@ -780,7 +789,8 @@ class riscv_instr_format_t(IntEnum):
     VS2_FORMAT = auto()  # op vd,vs2
     VL_FORMAT = auto()
     VS_FORMAT = auto()
-
+    #cache-format for CMO
+    Z_FORMAT=auto()
 
 # Vector arithmetic instruction variant
 class va_variant_t(IntEnum):
@@ -1870,6 +1880,26 @@ def get_attr_list(instr_name):
         riscv_instr_name_t.SUBW: [riscv_instr_format_t.R_FORMAT,
                                  riscv_instr_category_t.ARITHMETIC,
                                  riscv_instr_group_t.RV64I],
+        # Added RV32Zicbop and RV32Zicbom
+        riscv_instr_name_t.CBO_CLEAN: [riscv_instr_format_t.Z_FORMAT,
+                                       riscv_instr_category_t.CACHE,
+                                       riscv_instr_group_t.RV32Z],
+        riscv_instr_name_t.CBO_FLUSH: [riscv_instr_format_t.Z_FORMAT,
+                                       riscv_instr_category_t.CACHE,
+                                       riscv_instr_group_t.RV32Z],
+        riscv_instr_name_t.CBO_INVAL: [riscv_instr_format_t.Z_FORMAT,
+                                       riscv_instr_category_t.CACHE,
+                                       riscv_instr_group_t.RV32Z],
+        riscv_instr_name_t.PREFETCH_I: [riscv_instr_format_t.Z_FORMAT,
+                                       riscv_instr_category_t.CACHE,
+                                       riscv_instr_group_t.RV32Z],
+        riscv_instr_name_t.PREFETCH_R: [riscv_instr_format_t.Z_FORMAT,
+                                       riscv_instr_category_t.CACHE,
+                                       riscv_instr_group_t.RV32Z],
+        riscv_instr_name_t.PREFETCH_W: [riscv_instr_format_t.Z_FORMAT,
+                                       riscv_instr_category_t.CACHE,
+                                       riscv_instr_group_t.RV32Z],
+        
 
         # RV64M
         riscv_instr_name_t.MULW: [riscv_instr_format_t.R_FORMAT,
