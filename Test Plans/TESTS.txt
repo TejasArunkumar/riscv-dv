@@ -1,0 +1,164 @@
+1.CZERO.EQZ rd,rs1,rs2
+
+	a) case 1 : rs2 = 0 : verify if rd = 0
+
+	b) case 2 : rs2 != 0: verify if rd = rs1
+
+	c) case 3 : rs2 is negative : verify if rd = rs1
+
+	d) case 4 : rs1 is negative, rs2 = 0 : verify if rd = 0
+
+	e) case 5 : rs1 = rs2 = 0 : verify if rd = 0
+
+	f) case 6 : rs1 = rs2 = max values : rd should be equal to rs1
+
+	g) case 7 : Both are negative : rd should be equal to rs1
+
+	i) case 9 : random values
+
+
+2.CZERO.NEZ rd, rs1, rs2
+
+	a) case 1 : rs2 != 0 : verify if rd = 0
+
+	b) case 2 : rs2 = 0 : veify if rd = rs1
+
+	c) case 3 : rs2 is negative : rd = 0
+
+	d) case 4 : rs1 is negative, rs2 is non zero : rd = 0
+
+	e) case 5 : max values for both : rd = 0
+
+	f) case 6 : both are zero : rd = 0
+
+	g) case 7 : random values for rs1 and rs2
+
+
+3.C.LBU rd, uimm(rs1)
+
+	a) case 1 : Load Byte : let rs1+uimm have 0XAB verify if rd = 0xAB
+
+	b) case 2 : Load a byte from address 0 : let rs1 = 0, let address zero have a value 0xAB and uimm = 0 verify if rd = 0xAB
+
+	c) case 3 : load a byte from highest address
+
+	d) case 4 : see if the loaded byte is extended with zeros at the left
+
+	e) case 5 : load byte using max uimm value
+
+4.C.LHU rd,uimm(rs1) 
+
+	The test cases reamin same as above but this loads a halfword instead of byte(Max UIMM value here is 1)
+
+5.C.LH rd,uimm(rs1)
+
+	a) case 1 : Load half word : let rs1+uimm have 0xFFFA (-6) , preform the above operation, rd should have -6
+
+	b) case 2 : signed halfword load from address 0
+
+	c) case 3 : load signed halfword from high address  and set values of rs1 and uimm such that it reaches 0xFFFF and after execution, rd should have 0xFFFE
+
+	d) case 4 : repeat case 1 but with posotive value to be loaded
+
+	e) case 5 : Test for sign extension for negative value loaded
+
+	f) case 6 : Half word load with maximum UIMM Value(1)
+
+6.C.SB rs2,uimm(rs1)
+
+	a) case 1 : store a byte - basic operation
+
+	b) case 2 : byte store to address 0
+
+	c) case 3 : Byte store to max address 
+
+	d) case 4 : Byte store with max UIMM value
+
+	e) case 5 : Overwrite the existing value at the address rs1+uimm with the value present at rs2
+
+	f) case 6 : Byte store with sign extension
+
+7.C.SH rs2,uimm(rs1)
+
+	The test cases remain same as above but this stores a halfword instead of byte (Max UIMM value is 1)
+
+8.C.ZEXT.B rsd
+
+	This command is equivalent to andi rd,rd,0xff == zero extends [XLEN-1 : 8] (XLEN = 32 here)
+
+	a) case 1 : 8 bit value is present in rsd : verify if rsd has the same value at [7:0] and 0s at [31:8]
+
+	b) case 2 : value larger than 8 bits in rsd : after execution, least significant byte should remain same followed by 0s at [31:8]
+
+	c) case 3 : 8th bit set as 1 so that when executed, 1 doesnt get copied (0x00000080 should not become 0xffffff80)
+
+	d) case 4 : check for rsd with max and min values (0xffffffff and 0x00000000)
+
+	e) case 5 : least significant nibble at rsd : after execution, content should remain same
+
+	e) case 6 : random values
+
+10.C.ZEXT.H rsd 
+
+	Same tests as above but this is eqivalent to andi rd,rd,0x0000ffff == zero extends [XLEN-1:16] 
+	Just change 8 bit values in C.ZEXT.B to 16 bit values (in test cases)
+
+12.C.ZEXT.W rsd 
+
+	same tests as above but valid only for rv64 because using this on rv32 makes the content of rd = 0
+
+9.C.SEXT.B rsd
+
+	a) case 1 : max value in rsd (0xffffffff) , post-execution content should be same
+
+	b) case 2 : only the 8th bit is clear all others are set , post execution content should have 0s at [31:8]
+
+	c) case 3 : [31:7] are clear , post execution content should be same
+
+	d) case 4 : only the 8th bit is set , post execution content should have [31:7] bits set
+
+	e) case 5 : random values (Alternating bits, random values for MSB, random values for 8th bit etc)
+
+11.C.SEXT.H rsd
+
+	Same test cases as above but perform the operations for 16th bit
+
+13.C.NOT rsd
+
+	All the test cases just check for inversion. Just performing it for any random value should do. but some cases among them are:
+
+	a) case 1 : all bits set
+
+	b) case 2 : all bits clear
+
+	c) case 3 : altenating bits set
+
+	d) case 4 : alternating bits clear
+
+	e) case 5 : Alternating bytes set and clear (0xff00ff00 and 0x00ff00ff)
+
+	f) case 6 : Only MSB clear
+
+	g) case 7 : random vales
+
+14.C.MUL rsd,rs2
+
+	a) case 1 : Multiplication of zeros
+
+	b) case 2 : zero and non zero
+
+	c) case 3 : multiply non zero with one
+
+	d) case 4 : multiplication with negative one
+
+	e) case 5 : multiplication of 2 positive values
+
+	f) case 6 : multiplication of 2 negative values
+
+	g) case 7 : psoitive x negative
+
+	h) case 8 : check for overflow (0x7fffffff x 0x00000002) (with 2 max pos vals, 2 max neg vals, one max pos with min neg etc)
+
+	i) case 9 : random values 
+
+	
