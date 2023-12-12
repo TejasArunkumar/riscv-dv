@@ -288,6 +288,7 @@ class riscv_instr_gen_config:
         # Bit manipulation extension support
         self.enable_b_extension = self.argv.enable_b_extension
         self.enable_bitmanip_groups = self.argv.enable_bitmanip_groups
+        self.enable_zcb_extension = self.argv.enable_zcb_extension
 
         # -----------------------------------------------------------------------------
         # Command line options for instruction distribution control
@@ -642,6 +643,8 @@ class riscv_instr_gen_config:
         parse.add_argument('--enable_bitmanip_groups', help = 'enable_bitmanip_groups',
                            default = ['ZBB', 'ZBS', 'ZBP', 'ZBE', 'ZBF',
                                       'ZBC', 'ZBR', 'ZBM', 'ZBT', 'ZB_TMP'], nargs = '*')
+        parse.add_argument('--enable_zcb_extension', help = 'enable_zcb_extension',
+                           choices = [0, 1], type = int, default = 0)
         parse.add_argument('--boot_mode', help = 'boot_mode', default = "")
         parse.add_argument('--asm_test_suffix', help = 'asm_test_suffix', default = "")
         parse.add_argument('--march_isa', help = 'march_isa', default = [],

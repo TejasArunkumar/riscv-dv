@@ -83,7 +83,9 @@ class riscv_load_store_base_instr_stream(riscv_mem_access_stream):
         self.addr = [0] * self.num_load_store
         for i in range(self.num_load_store):
             try:
-                if self.locality == locality_e.NARROW:
+                if cfg.enable_zcb_extension == 1:
+                    offset_ = random.randrange(0,3)
+                elif self.locality == locality_e.NARROW:
                     offset_ = random.randrange(-16, 16)
                 elif self.locality == locality_e.HIGH:
                     offset_ = random.randrange(-64, 64)
@@ -99,6 +101,10 @@ class riscv_load_store_base_instr_stream(riscv_mem_access_stream):
                 sys.exit(1)
             self.offset[i] = offset_
             self.addr[i] = addr_
+    # @vsc.constraint
+    # def offset_c(self):
+    #     with vsc.if_then(cfg.enable_zcb_extension == 1):
+    #         self.offset.inside(vsc.rangelist(vsc.rng(0, 3)))
 
     def pre_randomize(self):
         super().pre_randomize()
@@ -122,21 +128,36 @@ class riscv_load_store_base_instr_stream(riscv_mem_access_stream):
     def gen_load_store_instr(self):
         allowed_instr = []
         enable_compressed_load_store = 0
+        enable_zcb = 0
         self.randomize_avail_regs()
         if ((self.rs1_reg in [riscv_reg_t.S0, riscv_reg_t.S1, riscv_reg_t.A0, riscv_reg_t.A1,
                               riscv_reg_t.A2, riscv_reg_t.A3, riscv_reg_t.A4, riscv_reg_t.A5,
                               riscv_reg_t.SP]) and not(cfg.disable_compressed_instr)):
+           # logging.info("enable_compressed_load_store=1")
             enable_compressed_load_store = 1
+        if ((riscv_instr_group_t.RV32C in rcs.supported_isa) and (riscv_instr_group_t.RV32Zcb in rcs.supported_isa) and cfg.enable_zcb_extension):
+            
+            enable_zcb = 1
+           # logging.info("enable_zcb={}".format(enable_zcb))
         for i in range(len(self.addr)):
             # Assign the allowed load/store instructions based on address alignment
             # This is done separately rather than a constraint to improve the randomization
             # performance
             allowed_instr.extend(
                 [riscv_instr_name_t.LB, riscv_instr_name_t.LBU, riscv_instr_name_t.SB])
+           # logging.info("offset = {}, enable_compressed_load_store = {}, enable_zcb = {}, rs1!=SP = {}".format(self.offset[i],enable_compressed_load_store,enable_zcb,(self.rs1_reg != riscv_reg_t.SP)))
+            if ((self.offset[i] in range(3)) and enable_compressed_load_store and enable_zcb and (self.rs1_reg != riscv_reg_t.SP) ):
+                logging.info("Add c.lbu and c.sb to allowed instructions")
+                allowed_instr.extend(
+                    [ riscv_instr_name_t.C_LBU, riscv_instr_name_t.C_SB])
             if not cfg.enable_unaligned_load_store:
                 if (self.addr[i] & 1) == 0:
                     allowed_instr.extend(
                         [riscv_instr_name_t.LH, riscv_instr_name_t.LHU, riscv_instr_name_t.SH])
+                if (((self.offset[i]==0) or (self.offset[i]==2)) and enable_compressed_load_store and enable_zcb and (self.rs1_reg != riscv_reg_t.SP)):
+                    logging.info("Add c.lhu, c.lh and c.sh to allowed instructions")
+                    allowed_instr.extend(
+                        [riscv_instr_name_t.C_LHU, riscv_instr_name_t.C_LH, riscv_instr_name_t.C_SH])
                 if self.addr[i] % 4 == 0:
                     allowed_instr.extend([riscv_instr_name_t.LW, riscv_instr_name_t.SW])
                     if cfg.enable_floating_point:

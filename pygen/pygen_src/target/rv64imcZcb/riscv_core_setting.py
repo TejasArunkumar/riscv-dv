@@ -25,23 +25,19 @@ from pygen_src.riscv_instr_pkg import (privileged_reg_t, satp_mode_t,
 XLEN = 64
 
 # set to BARE if address translation is not supported
-SATP_MODE = satp_mode_t.SV39
+SATP_MODE = satp_mode_t.BARE
 
 # Supported Privileged mode
-supported_privileged_mode = [privileged_mode_t.USER_MODE,
-                             privileged_mode_t.SUPERVISOR_MODE,
-                             privileged_mode_t.MACHINE_MODE]
+supported_privileged_mode = [privileged_mode_t.MACHINE_MODE]
 
 # Unsupported instructions
 unsupported_instr = []
 
 # ISA supported by the processor
 supported_isa = [riscv_instr_group_t.RV32I, riscv_instr_group_t.RV32M,
-                 riscv_instr_group_t.RV64I, riscv_instr_group_t.RV64M,
-                 riscv_instr_group_t.RV32C, riscv_instr_group_t.RV64C,
-                 riscv_instr_group_t.RV32A, riscv_instr_group_t.RV64A,
-                 riscv_instr_group_t.RV32F, riscv_instr_group_t.RV64F,
-                 riscv_instr_group_t.RV32D, riscv_instr_group_t.RV64D]
+                 riscv_instr_group_t.RV32C, riscv_instr_group_t.RV64I,
+                 riscv_instr_group_t.RV64M, riscv_instr_group_t.RV64C,
+                 riscv_instr_group_t.RV32Zcb, riscv_instr_group_t.RV64Zcb]
 
 # Interrupt mode support
 supported_interrupt_mode = [mtvec_mode_t.DIRECT, mtvec_mode_t.VECTORED]
@@ -104,29 +100,7 @@ NUM_HARTS = 1
 # -----------------------------------------------------------------------------
 
 # Implemented previlieged CSR list
-implemented_csr = [privileged_reg_t.USTATUS,    # User status
-                   privileged_reg_t.UIE,        # User interrupt-enable register
-                   privileged_reg_t.UTVEC,      # User trap-handler base address
-                   privileged_reg_t.USCRATCH,   # Scratch register for user trap handlers
-                   privileged_reg_t.UEPC,       # User exception program counter
-                   privileged_reg_t.UCAUSE,     # User trap cause
-                   privileged_reg_t.UTVAL,      # User bad address or instruction
-                   privileged_reg_t.UIP,        # User interrupt pending
-                   # Supervisor mode CSR
-                   privileged_reg_t.SSTATUS,    # Supervisor status
-                   privileged_reg_t.SEDELEG,    # Supervisor exception delegation register
-                   privileged_reg_t.SIDELEG,    # Supervisor interrupt delegation register
-                   privileged_reg_t.SIE,        # Supervisor interrupt-enable register
-                   privileged_reg_t.STVEC,      # Supervisor trap-handler base address
-                   privileged_reg_t.SCOUNTEREN, # Supervisor counter enable
-                   privileged_reg_t.SSCRATCH,   # Scratch register for supervisor trap handlers
-                   privileged_reg_t.SEPC,       # Supervisor exception program counter
-                   privileged_reg_t.SCAUSE,     # Supervisor trap cause
-                   privileged_reg_t.STVAL,      # Supervisor bad address or instruction
-                   privileged_reg_t.SIP,        # Supervisor interrupt pending
-                   privileged_reg_t.SATP,       # Supervisor address translation and protection
-                   # Machine mode mode CSR
-                   privileged_reg_t.MVENDORID,  # Vendor ID
+implemented_csr = [privileged_reg_t.MVENDORID,  # Vendor ID
                    privileged_reg_t.MARCHID,  # Architecture ID
                    privileged_reg_t.MIMPID,  # Implementation ID
                    privileged_reg_t.MHARTID,  # Hardware thread ID

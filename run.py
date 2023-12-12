@@ -970,6 +970,12 @@ def load_config(args, cwd):
         elif args.target == "rv64imafdc":
             args.mabi = "lp64"
             args.isa = "rv64imafdc"
+        elif args.target == "rv64imafdcZicond":
+            args.mabi = "lp64"
+            args.isa = "rv64imafdc_zicond"
+        elif args.target == "rv64imcZcb":
+            args.mabi = "lp64"
+            args.isa = "rv64imc"
         else:
             sys.exit("Unsupported pre-defined target: {}".format(args.target))
     else:

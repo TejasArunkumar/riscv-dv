@@ -18,7 +18,7 @@ from pygen_src.riscv_instr_pkg import (riscv_instr_name_t, riscv_instr_format_t,
 
 
 
-DEFINE_ZCB_INSTR(riscv_instr_name_t.C_ZEXT_W, riscv_instr_format_t.CE_FORMAT,
-                 riscv_instr_category_t.LOGICAL, riscv_instr_group_t.RV64Zcb,  g=globals())
+DEFINE_ZCB_INSTR(riscv_instr_name_t.C_ZEXT_W, riscv_instr_format_t.CSZN_FORMAT,
+                 riscv_instr_category_t.ARITHMETIC, riscv_instr_group_t.RV64Zcb,  g=globals())
 
 

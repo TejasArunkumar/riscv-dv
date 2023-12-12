@@ -17,27 +17,25 @@ from pygen_src.riscv_instr_pkg import (riscv_instr_name_t, riscv_instr_format_t,
                                        riscv_instr_category_t, riscv_instr_group_t, imm_t)
 
 
-DEFINE_ZCB_INSTR(riscv_instr_name_t.C_LBU, riscv_instr_format_t.CL_FORMAT,
+DEFINE_ZCB_INSTR(riscv_instr_name_t.C_LBU, riscv_instr_format_t.CLB_FORMAT,
                  riscv_instr_category_t.LOAD, riscv_instr_group_t.RV32Zcb, imm_t.UIMM, g=globals())
-DEFINE_ZCB_INSTR(riscv_instr_name_t.C_LHU, riscv_instr_format_t.CL_FORMAT,
+DEFINE_ZCB_INSTR(riscv_instr_name_t.C_LHU, riscv_instr_format_t.CLH_FORMAT,
                  riscv_instr_category_t.LOAD, riscv_instr_group_t.RV32Zcb, imm_t.UIMM, g=globals())
-DEFINE_ZCB_INSTR(riscv_instr_name_t.C_LH, riscv_instr_format_t.CL_FORMAT,
+DEFINE_ZCB_INSTR(riscv_instr_name_t.C_LH, riscv_instr_format_t.CLH_FORMAT,
                  riscv_instr_category_t.LOAD, riscv_instr_group_t.RV32Zcb, imm_t.UIMM, g=globals())
-DEFINE_ZCB_INSTR(riscv_instr_name_t.C_SB, riscv_instr_format_t.CS_FORMAT,
+DEFINE_ZCB_INSTR(riscv_instr_name_t.C_SB, riscv_instr_format_t.CSB_FORMAT,
                  riscv_instr_category_t.STORE, riscv_instr_group_t.RV32Zcb, imm_t.UIMM, g=globals())
-DEFINE_ZCB_INSTR(riscv_instr_name_t.C_SH, riscv_instr_format_t.CS_FORMAT,
+DEFINE_ZCB_INSTR(riscv_instr_name_t.C_SH, riscv_instr_format_t.CSH_FORMAT,
                  riscv_instr_category_t.STORE, riscv_instr_group_t.RV32Zcb, imm_t.UIMM, g=globals())
-DEFINE_ZCB_INSTR(riscv_instr_name_t.C_ZEXT_B, riscv_instr_format_t.CE_FORMAT,
-                 riscv_instr_category_t.LOGICAL, riscv_instr_group_t.RV32Zcb,  g=globals())
-DEFINE_ZCB_INSTR(riscv_instr_name_t.C_SEXT_B, riscv_instr_format_t.CE_FORMAT,
-                 riscv_instr_category_t.LOGICAL, riscv_instr_group_t.RV32Zcb,  g=globals())
-DEFINE_ZCB_INSTR(riscv_instr_name_t.C_ZEXT_H, riscv_instr_format_t.CE_FORMAT,
-                 riscv_instr_category_t.LOGICAL, riscv_instr_group_t.RV32Zcb,  g=globals())
-DEFINE_ZCB_INSTR(riscv_instr_name_t.C_SEXT_H, riscv_instr_format_t.CE_FORMAT,
-                 riscv_instr_category_t.LOGICAL, riscv_instr_group_t.RV32Zcb,  g=globals())
-# DEFINE_ZCB_INSTR(riscv_instr_name_t.C_ZEXT_W, riscv_instr_format_t.CE_FORMAT,
-#                  riscv_instr_category_t.LOGICAL, riscv_instr_group_t.RV32Zcb,  g=globals())
-DEFINE_ZCB_INSTR(riscv_instr_name_t.C_NOT, riscv_instr_format_t.CA_FORMAT,
+DEFINE_ZCB_INSTR(riscv_instr_name_t.C_ZEXT_B, riscv_instr_format_t.CSZN_FORMAT,
+                 riscv_instr_category_t.ARITHMETIC, riscv_instr_group_t.RV32Zcb,  g=globals())
+DEFINE_ZCB_INSTR(riscv_instr_name_t.C_SEXT_B, riscv_instr_format_t.CSZN_FORMAT,
+                 riscv_instr_category_t.ARITHMETIC, riscv_instr_group_t.RV32Zcb,  g=globals())
+DEFINE_ZCB_INSTR(riscv_instr_name_t.C_ZEXT_H, riscv_instr_format_t.CSZN_FORMAT,
+                 riscv_instr_category_t.ARITHMETIC, riscv_instr_group_t.RV32Zcb,  g=globals())
+DEFINE_ZCB_INSTR(riscv_instr_name_t.C_SEXT_H, riscv_instr_format_t.CSZN_FORMAT,
+                 riscv_instr_category_t.ARITHMETIC, riscv_instr_group_t.RV32Zcb,  g=globals())
+DEFINE_ZCB_INSTR(riscv_instr_name_t.C_NOT, riscv_instr_format_t.CSZN_FORMAT,
                  riscv_instr_category_t.LOGICAL, riscv_instr_group_t.RV32Zcb,  g=globals())
 DEFINE_ZCB_INSTR(riscv_instr_name_t.C_MUL, riscv_instr_format_t.CA_FORMAT,
                  riscv_instr_category_t.ARITHMETIC, riscv_instr_group_t.RV32Zcb,  g=globals())
