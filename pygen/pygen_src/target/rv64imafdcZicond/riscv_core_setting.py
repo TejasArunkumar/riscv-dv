@@ -41,7 +41,8 @@ supported_isa = [riscv_instr_group_t.RV32I, riscv_instr_group_t.RV32M,
                  riscv_instr_group_t.RV32C, riscv_instr_group_t.RV64C,
                  riscv_instr_group_t.RV32A, riscv_instr_group_t.RV64A,
                  riscv_instr_group_t.RV32F, riscv_instr_group_t.RV64F,
-                 riscv_instr_group_t.RV32D, riscv_instr_group_t.RV64D]
+                 riscv_instr_group_t.RV32D, riscv_instr_group_t.RV64D,
+                 riscv_instr_group_t.RV32Zicond, riscv_instr_group_t.RV64Zicond]
 
 # Interrupt mode support
 supported_interrupt_mode = [mtvec_mode_t.DIRECT, mtvec_mode_t.VECTORED]

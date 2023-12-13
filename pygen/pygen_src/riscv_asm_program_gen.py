@@ -366,9 +366,7 @@ class riscv_asm_program_gen:
         for group in rcs.supported_isa:
             if group in [riscv_instr_group_t.RV32C,
                          riscv_instr_group_t.RV64C,
-                         riscv_instr_group_t.RV128C,
-                         riscv_instr_group_t.RV32Zcb,
-                         riscv_instr_group_t.RV64Zcb]:
+                         riscv_instr_group_t.RV128C]:
                 misa[misa_ext_t.MISA_EXT_C] = 1
             elif group in [riscv_instr_group_t.RV32I,
                            riscv_instr_group_t.RV64I,
@@ -400,8 +398,10 @@ class riscv_asm_program_gen:
                 misa[misa_ext_t.MISA_EXT_Z] = 1 #added - documentation says Z is reserved, no indication for zicbom and zicbop - placeholder
             # Need to check this. Works for now but not right!
             elif group in [riscv_instr_group_t.RV32Zicond,
-                           riscv_instr_group_t.RV64Zicond]:
-                misa[misa_ext_t.MISA_EXT_Z] = 1
+                           riscv_instr_group_t.RV64Zicond,
+                           riscv_instr_group_t.RV32Zcb,
+                           riscv_instr_group_t.RV64Zcb]:
+                pass
             else:
                 logging.critical("{} is not yet supported".format(group.name))
                 sys.exit(1)
